@@ -1,0 +1,12 @@
+const String appDescriptionText = 'This is an architecture demo. Main goal is '
+    'to show the work of the architecture in an interesting '
+    'and interactive way. '
+    '\n\n'
+    'On first screen you play for a Barbarian which fights the Zombie on '
+    'the second screen. If you leave the first screen, '
+    'you\nll become the Zombie.'
+    '\n\n'
+    'The architecture is Bloc pattern in the following way: '
+    '[UI] <-> Bloc <-> Service <-> Repo <-> Data provider.'
+    '\n\n'
+    'GetIt is used for Service locator pattern instead of Dependency Injection';
