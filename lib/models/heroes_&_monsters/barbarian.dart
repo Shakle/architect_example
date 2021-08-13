@@ -17,8 +17,8 @@ class Barbarian with EquatableMixin implements Humanoid {
   });
 
   Barbarian.fromJson(Json json)
-      : health = json['health'],
-        strength = json['strength'];
+      : health = json['health'] ?? 0,
+        strength = json['strength'] ?? 0;
 
   Json toJson() {
     return {

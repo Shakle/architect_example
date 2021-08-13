@@ -27,7 +27,6 @@ class PlayerFirstCubit extends Cubit<PlayerFirstState> {
   void attack() {
     if (state is PlayerFirstInFight) {
       final Barbarian barbarian = (state as PlayerFirstInFight).barbarian;
-
       playerSecondBloc.add(PlayerSecondDamageReceived(character: barbarian));
     }
   }

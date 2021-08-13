@@ -7,19 +7,19 @@ abstract class PlayerSecondState {
 class PlayerSecondInitial extends PlayerSecondState {}
 
 class PlayerSecondReady extends PlayerSecondState with EquatableMixin {
-  final Character character;
-  const PlayerSecondReady({required this.character});
+  final Zombie zombie;
+  const PlayerSecondReady({required this.zombie});
 
   @override
-  List<Object> get props => [character];
+  List<Object> get props => [zombie];
 }
 
 class PlayerFirstInFight extends PlayerSecondState with EquatableMixin {
-  final Character character;
-  const PlayerFirstInFight({required this.character});
+  final Zombie zombie;
+  const PlayerFirstInFight({required this.zombie});
 
   @override
-  List<Object> get props => [character];
+  List<Object> get props => [zombie];
 }
 
 class PlayerSecondIsLoading extends PlayerSecondState {}

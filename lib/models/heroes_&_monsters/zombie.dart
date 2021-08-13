@@ -21,9 +21,9 @@ class Zombie with EquatableMixin implements Humanoid,  Monster {
   });
 
   Zombie.fromJson(Json json)
-      : health = json['health'],
-        strength = json['strength'],
-        defence = json['defence'];
+      : health = json['health'] ?? 0,
+        strength = json['strength'] ?? 0,
+        defence = json['defence'] ?? 0;
 
   Json toJson() {
     return {

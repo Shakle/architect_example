@@ -1,5 +1,7 @@
 import 'package:architect_example/constants/enums.dart';
 import 'package:architect_example/logic/blocs/player_first/player_first_cubit.dart';
+import 'package:architect_example/logic/blocs/player_second/player_second_bloc.dart';
+import 'package:architect_example/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +24,11 @@ class ActionButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {
         if (heroAction == HeroAction.heal) {
-          context.read<PlayerFirstCubit>().heal();
+          if (ModalRoute.of(context)?.settings.name == routeHome) {
+            context.read<PlayerFirstCubit>().heal();
+          } else if (ModalRoute.of(context)?.settings.name == routeEnemy) {
+            context.read<PlayerSecondBloc>().add(PlayerSecondHealingReceived());
+          }
         }
       },
       style: OutlinedButton.styleFrom(

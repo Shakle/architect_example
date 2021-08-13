@@ -24,9 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_bloc: ^7.0.1
+  flutter_bloc: ^7.1.0
   equatable: ^2.0.3
-  rive: ^0.7.24
+  rive: ^0.7.28
 
   cupertino_icons: ^1.0.3
 

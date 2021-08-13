@@ -94,9 +94,15 @@ class Stats extends StatelessWidget {
   }
 
   String getHealth(dynamic state) {
+    if (state is p_first.PlayerFirstInFight) {
+      return state.barbarian.health.toString();
+    } else if (state is p_second.PlayerSecondReady) {
+      return state.zombie.health.toString();
+    }
+
     switch (state.runtimeType) {
       case p_first.PlayerFirstInFight: return state.barbarian.health.toString();
-      case p_second.PlayerSecondLoadSuccess: return state.toString();
+      case p_second.PlayerSecondReady: return (state as p_second.PlayerSecondReady).zombie.health.toString();
       default: return '-';
     }
   }
