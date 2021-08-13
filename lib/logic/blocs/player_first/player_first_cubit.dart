@@ -13,18 +13,16 @@ class PlayerFirstCubit extends Cubit<PlayerFirstState> {
   final CharacterRepository characterRepository;
   final HealingService healingService;
   final DamageService damageService;
-  final PlayerSecondBloc playerSecondBloc;
 
   PlayerFirstCubit({
     required this.characterRepository,
     required this.healingService,
     required this.damageService,
-    required this.playerSecondBloc,
   }) : super(PlayerFirstInitial()) {
     _fetchFirstCharacter();
   }
 
-  void attack() {
+  void attack({required PlayerSecondBloc playerSecondBloc}) {
     if (state is PlayerFirstInFight) {
       final Barbarian barbarian = (state as PlayerFirstInFight).barbarian;
       playerSecondBloc.add(PlayerSecondDamageReceived(character: barbarian));
@@ -40,10 +38,13 @@ class PlayerFirstCubit extends Cubit<PlayerFirstState> {
     }
   }
 
-  void receiveDamage({required Character character}) {
+  void receiveDamage({required Character attackingCharacter}) {
     if (state is PlayerFirstInFight) {
       final Barbarian barbarian = (state as PlayerFirstInFight).barbarian;
-      final int hpAfterDamage = damageService.getHPAfterDamage(character: character);
+      final int hpAfterDamage = damageService.getHPAfterDamage(
+          attackingCharacter: attackingCharacter,
+          underAttackCharacter: barbarian,
+      );
 
       emit(PlayerFirstInFight(barbarian: barbarian.copyWith(health: hpAfterDamage)));
     }

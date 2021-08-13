@@ -6,7 +6,7 @@ import 'package:architect_example/logic/services/damage_service.dart';
 import 'package:architect_example/logic/services/healing_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-final PlayerSecondBloc _playerSecondBloc = PlayerSecondBloc(
+final PlayerFirstCubit _playerFirstCubit = PlayerFirstCubit(
   healingService: HealingServiceImpl(),
   damageService: DamageServiceImpl(),
   characterRepository: CharacterRepositoryImpl(
@@ -14,8 +14,7 @@ final PlayerSecondBloc _playerSecondBloc = PlayerSecondBloc(
   ),
 );
 
-final PlayerFirstCubit _playerFirstCubit = PlayerFirstCubit(
-  playerSecondBloc: _playerSecondBloc,
+final PlayerSecondBloc _playerSecondBloc = PlayerSecondBloc(
   healingService: HealingServiceImpl(),
   damageService: DamageServiceImpl(),
   characterRepository: CharacterRepositoryImpl(

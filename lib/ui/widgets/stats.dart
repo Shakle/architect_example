@@ -22,6 +22,7 @@ class Stats extends StatelessWidget {
   Widget layout() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
         hp(),
@@ -33,7 +34,6 @@ class Stats extends StatelessWidget {
 
   Widget hp() {
     return Row(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           Icons.favorite,
@@ -47,7 +47,15 @@ class Stats extends StatelessWidget {
                 ? context.watch<p_first.PlayerFirstCubit>().state
                 : context.watch<p_second.PlayerSecondBloc>().state;
 
-            return Text(getHealth(state), style: numbersStatStyle());
+            return ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minWidth: 35
+                ),
+                child: Text(
+                  getHealth(state),
+                  style: numbersStatStyle(),
+                ),
+            );
           },
         ),
       ],

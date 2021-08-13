@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:architect_example/data/repositories/abstracts/character_repository.dart';
+import 'package:architect_example/logic/blocs/player_first/player_first_cubit.dart';
 import 'package:architect_example/logic/services/abstracts/damage_service.dart';
 import 'package:architect_example/logic/services/abstracts/healing_service.dart';
 import 'package:architect_example/models/heroes_&_monsters/abstract/character.dart';
@@ -30,6 +31,10 @@ class PlayerSecondBloc extends Bloc<PlayerSecondEvent, PlayerSecondState> {
       yield* _requestPlayer(event);
     } else if (event is PlayerSecondHealingReceived) {
       yield* _heal();
+    } else if (event is PlayerSecondDamageReceived) {
+      yield* _damageReceived(event);
+    } else if (event is PlayerSecondAttackMade) {
+      attack(event);
     }
   }
 
@@ -39,6 +44,25 @@ class PlayerSecondBloc extends Bloc<PlayerSecondEvent, PlayerSecondState> {
       final int hpAfterHealing = healingService.getHPAfterHealing(character: zombie);
 
       yield PlayerSecondReady(zombie: zombie.copyWith(health: hpAfterHealing));
+    }
+  }
+
+  void attack(PlayerSecondAttackMade event) {
+    if (state is PlayerSecondReady) {
+      final Zombie zombie = (state as PlayerSecondReady).zombie;
+      event.playerFirstCubit.receiveDamage(attackingCharacter: zombie);
+    }
+  }
+
+  Stream<PlayerSecondReady> _damageReceived(PlayerSecondDamageReceived event) async* {
+    if (state is PlayerSecondReady) {
+      final Zombie zombie = (state as PlayerSecondReady).zombie;
+      final int hpAfterDamage = damageService.getHPAfterDamage(
+          underAttackCharacter: zombie,
+          attackingCharacter: event.character,
+      );
+
+      yield PlayerSecondReady(zombie: zombie.copyWith(health: hpAfterDamage));
     }
   }
 

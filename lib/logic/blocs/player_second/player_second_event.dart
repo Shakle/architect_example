@@ -11,6 +11,10 @@ class PlayerSecondDamageReceived extends PlayerSecondEvent {
   const PlayerSecondDamageReceived({required this.character});
 }
 
-class PlayerSecondDamageMade extends PlayerSecondEvent {}
+class PlayerSecondAttackMade extends PlayerSecondEvent {
+  final PlayerFirstCubit playerFirstCubit;
+  const PlayerSecondAttackMade({required this.playerFirstCubit});
+}
+
 class PlayerSecondHealingReceived extends PlayerSecondEvent {}
 

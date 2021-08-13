@@ -24,11 +24,9 @@ class ActionButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {
         if (heroAction == HeroAction.heal) {
-          if (ModalRoute.of(context)?.settings.name == routeHome) {
-            context.read<PlayerFirstCubit>().heal();
-          } else if (ModalRoute.of(context)?.settings.name == routeEnemy) {
-            context.read<PlayerSecondBloc>().add(PlayerSecondHealingReceived());
-          }
+          healingActions(context);
+        } else if (heroAction == HeroAction.attack) {
+          attackActions(context);
         }
       },
       style: OutlinedButton.styleFrom(
@@ -73,6 +71,28 @@ class ActionButton extends StatelessWidget {
     switch (heroAction) {
       case HeroAction.attack: return Colors.red.withOpacity(0.5);
       case HeroAction.heal: return Colors.green.withOpacity(0.5);
+    }
+  }
+
+  void healingActions(BuildContext context) {
+    if (ModalRoute.of(context)?.settings.name == routeHome) {
+      context.read<PlayerFirstCubit>().heal();
+    } else if (ModalRoute.of(context)?.settings.name == routeEnemy) {
+      context.read<PlayerSecondBloc>().add(PlayerSecondHealingReceived());
+    }
+  }
+
+  void attackActions(BuildContext context) {
+    if (ModalRoute.of(context)?.settings.name == routeHome) {
+      final PlayerSecondBloc playerSecondBloc = context.read<PlayerSecondBloc>();
+
+      context.read<PlayerFirstCubit>().attack(playerSecondBloc: playerSecondBloc);
+    } else if (ModalRoute.of(context)?.settings.name == routeEnemy) {
+      final PlayerFirstCubit playerFirstCubit = context.read<PlayerFirstCubit>();
+
+      context.read<PlayerSecondBloc>().add(
+          PlayerSecondAttackMade(playerFirstCubit: playerFirstCubit),
+      );
     }
   }
 }
