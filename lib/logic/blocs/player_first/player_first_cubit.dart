@@ -43,7 +43,7 @@ class PlayerFirstCubit extends Cubit<PlayerFirstState> {
       final Barbarian barbarian = (state as PlayerFirstInFight).barbarian;
       final int hpAfterDamage = damageService.getHPAfterDamage(
           attackingCharacter: attackingCharacter,
-          underAttackCharacter: barbarian,
+          characterUnderAttack: barbarian,
       );
 
       emit(PlayerFirstInFight(barbarian: barbarian.copyWith(health: hpAfterDamage)));

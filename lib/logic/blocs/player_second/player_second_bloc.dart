@@ -38,31 +38,31 @@ class PlayerSecondBloc extends Bloc<PlayerSecondEvent, PlayerSecondState> {
     }
   }
 
-  Stream<PlayerSecondReady> _heal() async* {
-    if (state is PlayerSecondReady) {
-      final Zombie zombie = (state as PlayerSecondReady).zombie;
+  Stream<PlayerSecondInFight> _heal() async* {
+    if (state is PlayerSecondInFight) {
+      final Zombie zombie = (state as PlayerSecondInFight).zombie;
       final int hpAfterHealing = healingService.getHPAfterHealing(character: zombie);
 
-      yield PlayerSecondReady(zombie: zombie.copyWith(health: hpAfterHealing));
+      yield PlayerSecondInFight(zombie: zombie.copyWith(health: hpAfterHealing));
     }
   }
 
   void attack(PlayerSecondAttackMade event) {
-    if (state is PlayerSecondReady) {
-      final Zombie zombie = (state as PlayerSecondReady).zombie;
+    if (state is PlayerSecondInFight) {
+      final Zombie zombie = (state as PlayerSecondInFight).zombie;
       event.playerFirstCubit.receiveDamage(attackingCharacter: zombie);
     }
   }
 
-  Stream<PlayerSecondReady> _damageReceived(PlayerSecondDamageReceived event) async* {
-    if (state is PlayerSecondReady) {
-      final Zombie zombie = (state as PlayerSecondReady).zombie;
+  Stream<PlayerSecondInFight> _damageReceived(PlayerSecondDamageReceived event) async* {
+    if (state is PlayerSecondInFight) {
+      final Zombie zombie = (state as PlayerSecondInFight).zombie;
       final int hpAfterDamage = damageService.getHPAfterDamage(
-          underAttackCharacter: zombie,
           attackingCharacter: event.character,
+          characterUnderAttack: zombie,
       );
 
-      yield PlayerSecondReady(zombie: zombie.copyWith(health: hpAfterDamage));
+      yield PlayerSecondInFight(zombie: zombie.copyWith(health: hpAfterDamage));
     }
   }
 
@@ -71,7 +71,7 @@ class PlayerSecondBloc extends Bloc<PlayerSecondEvent, PlayerSecondState> {
 
     try {
       Zombie zombie = await characterRepository.getZombie();
-      yield PlayerSecondReady(zombie: zombie);
+      yield PlayerSecondInFight(zombie: zombie);
     } catch (e) {
       add(PlayerSecondRequested());
     }

@@ -1,5 +1,5 @@
 import 'package:architect_example/constants/enums.dart';
-import 'package:architect_example/ui/widgets/stats.dart';
+import 'package:architect_example/ui/widgets/stats/stats_list.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
@@ -30,7 +30,7 @@ class CharacterAvatar extends StatelessWidget {
               right: 0,
               bottom: 0,
               top: 0,
-              child: Stats(
+              child: StatsList(
                   isPlayable: isPlayable,
                   characterType: characterType,
               ),
@@ -48,7 +48,7 @@ class CharacterAvatar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             character(),
-            Stats(
+            StatsList(
               isPlayable: isPlayable,
               characterType: characterType,
             ),
