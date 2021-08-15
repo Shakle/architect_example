@@ -5,29 +5,38 @@ import 'package:equatable/equatable.dart';
 import '../../constants/aliases.dart';
 
 class Zombie with EquatableMixin implements Humanoid,  Monster {
+
   @override
   final CharacterType characterType = CharacterType.zombie;
+
+  @override
+  final int maxHealth;
+
   @override
   int health;
+
   @override
   final int strength;
+
   @override
   final int defence;
 
   Zombie({
+    required this.maxHealth,
     required this.health,
     required this.strength,
     required this.defence
   });
 
   Zombie.fromJson(Json json)
-      : health = json['health'] ?? 0,
+      : maxHealth = json['max_health'] ?? 100,
+        health = json['max_health'] ?? 100,
         strength = json['strength'] ?? 0,
         defence = json['defence'] ?? 0;
 
   Json toJson() {
     return {
-      'health': health,
+      'max_health': maxHealth,
       'strength': strength,
       'defence': defence,
     };
@@ -36,6 +45,7 @@ class Zombie with EquatableMixin implements Humanoid,  Monster {
   @override
   Zombie copyWith({int? health, int? strength, int? defence}) {
     return Zombie(
+      maxHealth: maxHealth,
       health: health ?? this.health,
       strength: strength ?? this.strength,
       defence: defence ?? this.defence,
@@ -43,6 +53,6 @@ class Zombie with EquatableMixin implements Humanoid,  Monster {
   }
 
   @override
-  List<Object?> get props => [characterType, health, strength, defence];
+  List<Object?> get props => [characterType, maxHealth, health, strength, defence];
 
 }

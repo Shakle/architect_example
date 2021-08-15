@@ -1,5 +1,5 @@
 {
-  "health": 115,
+  "max_health": 115,
   "strength": 25,
   "defence": 5
 }

@@ -76,13 +76,21 @@ class Stat extends StatelessWidget {
         if (characterType == CharacterType.barbarian) {
           statValue = context.select((p_first.PlayerFirstCubit b) {
             if (b.state is p_first.PlayerFirstInFight) {
-              return '${(b.state as p_first.PlayerFirstInFight).barbarian.strength}';
+              final String strength = '${(b.state as p_first.PlayerFirstInFight)
+                  .barbarian
+                  .strength
+              }';
+              return strength;
             }
           });
         } else {
           statValue = context.select((p_second.PlayerSecondBloc z) {
             if (z.state is p_second.PlayerSecondInFight) {
-              return '${(z.state as p_second.PlayerSecondInFight).zombie.strength}';
+              final String strength = '${(z.state as p_second.PlayerSecondInFight)
+                  .zombie
+                  .strength
+              }';
+              return strength;
             }
           });
         }
@@ -91,13 +99,21 @@ class Stat extends StatelessWidget {
         if (characterType == CharacterType.barbarian) {
           statValue = context.select((p_first.PlayerFirstCubit b) {
             if (b.state is p_first.PlayerFirstInFight) {
-              return '${(b.state as p_first.PlayerFirstInFight).barbarian.health}';
+              final String health = '${(b.state as p_first.PlayerFirstInFight)
+                  .barbarian
+                  .health
+              }';
+              return health;
             }
           });
         } else {
           statValue = context.select((p_second.PlayerSecondBloc z) {
             if (z.state is p_second.PlayerSecondInFight) {
-              return '${(z.state as p_second.PlayerSecondInFight).zombie.health}';
+              final String health = '${(z.state as p_second.PlayerSecondInFight)
+                  .zombie
+                  .health
+              }';
+              return health;
             }
           });
         }
@@ -106,7 +122,11 @@ class Stat extends StatelessWidget {
         if (characterType == CharacterType.zombie) {
           statValue = context.select((p_second.PlayerSecondBloc z) {
             if (z.state is p_second.PlayerSecondInFight) {
-              return '${(z.state as p_second.PlayerSecondInFight).zombie.defence}';
+              final String defence = '${(z.state as p_second.PlayerSecondInFight)
+                  .zombie
+                  .defence
+              }';
+              return defence;
             }
           });
         } else {

@@ -6,23 +6,30 @@ import 'package:equatable/equatable.dart';
 class Barbarian with EquatableMixin implements Humanoid {
   @override
   final CharacterType characterType = CharacterType.barbarian;
+
+  @override
+  final int maxHealth;
+
   @override
   int health;
+
   @override
   final int strength;
 
   Barbarian({
+    required this.maxHealth,
     required this.health,
     required this.strength,
   });
 
   Barbarian.fromJson(Json json)
-      : health = json['health'] ?? 0,
+      : maxHealth = json['max_health'] ?? 100,
+        health = json['max_health'] ?? 100,
         strength = json['strength'] ?? 0;
 
   Json toJson() {
     return {
-      'health': health,
+      'max_health': maxHealth,
       'strength': strength,
     };
   }
@@ -30,12 +37,13 @@ class Barbarian with EquatableMixin implements Humanoid {
   @override
   Barbarian copyWith({int? health, int? strength}) {
     return Barbarian(
+      maxHealth: maxHealth,
       health: health ?? this.health,
       strength: strength ?? this.strength,
     );
   }
 
   @override
-  List<Object?> get props => [characterType, health, strength];
+  List<Object?> get props => [characterType, maxHealth, health, strength];
 
 }

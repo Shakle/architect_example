@@ -17,4 +17,5 @@ class PlayerSecondAttackMade extends PlayerSecondEvent {
 }
 
 class PlayerSecondHealingReceived extends PlayerSecondEvent {}
+class PlayerSecondReset extends PlayerSecondEvent {}
 

@@ -50,6 +50,14 @@ class PlayerFirstCubit extends Cubit<PlayerFirstState> {
     }
   }
 
+  void resetCharacter() {
+    if (state is PlayerFirstInFight) {
+      final Barbarian barbarian = (state as PlayerFirstInFight).barbarian;
+
+      emit(PlayerFirstInFight(barbarian: barbarian.copyWith(health: barbarian.maxHealth)));
+    }
+  }
+
   Future<void> _fetchFirstCharacter() async {
     if (state is PlayerFirstInitial) {
       try {
@@ -60,7 +68,5 @@ class PlayerFirstCubit extends Cubit<PlayerFirstState> {
       }
     }
   }
-
-
 
 }

@@ -6,6 +6,11 @@ class HealingServiceImpl implements HealingService {
   @override
   int getHPAfterHealing({required Character character}) {
     int healPoints = 5;
-    return character.health + healPoints;
+
+    final int healedHealth = character.health + healPoints;
+
+    return healedHealth <= character.maxHealth
+        ? healedHealth
+        : character.maxHealth;
   }
 }

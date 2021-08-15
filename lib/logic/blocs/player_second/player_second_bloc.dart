@@ -35,6 +35,8 @@ class PlayerSecondBloc extends Bloc<PlayerSecondEvent, PlayerSecondState> {
       yield* _damageReceived(event);
     } else if (event is PlayerSecondAttackMade) {
       attack(event);
+    } else if (event is PlayerSecondReset) {
+      yield* _resetCharacter();
     }
   }
 
@@ -74,6 +76,13 @@ class PlayerSecondBloc extends Bloc<PlayerSecondEvent, PlayerSecondState> {
       yield PlayerSecondInFight(zombie: zombie);
     } catch (e) {
       add(PlayerSecondRequested());
+    }
+  }
+
+  Stream<PlayerSecondInFight> _resetCharacter() async* {
+    if (state is PlayerSecondInFight) {
+      final Zombie zombie = (state as PlayerSecondInFight).zombie;
+      yield PlayerSecondInFight(zombie: zombie.copyWith(health: zombie.maxHealth));
     }
   }
 
