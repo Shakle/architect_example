@@ -3,6 +3,7 @@ import 'package:architect_example/constants/texts.dart';
 import 'package:architect_example/logic/blocs/player_first/player_first_cubit.dart';
 import 'package:architect_example/logic/blocs/player_second/player_second_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -19,6 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   AppBar appBar(BuildContext context) {
     return AppBar(
       iconTheme: const IconThemeData(color: Colors.black),
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: restartButton(context),
